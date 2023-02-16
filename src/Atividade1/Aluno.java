@@ -59,6 +59,7 @@ public class Aluno {
 		this.email = email;
 	}
 	
+	// Método responsável por retornar a idade de cada aluno
 	public Integer idade(Aluno aluno) {
 		Integer idade = 0;
 		idade = new Date().getYear() - aluno.getDataNascimento().getYear();
@@ -72,6 +73,7 @@ public class Aluno {
 		return idade;
 	}
 	
+	// Método responsável por imprimir todos os dados de cada aluno
 	public void imprimirDados() {
 		SimpleDateFormat formato = new SimpleDateFormat();
 		
