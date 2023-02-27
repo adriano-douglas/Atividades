@@ -1,5 +1,7 @@
 package Atividade2;
 
+import java.util.ArrayList;
+
 public class LivroCategoria {
 	
 	private Integer idLivro;
@@ -30,4 +32,21 @@ public class LivroCategoria {
 	public void setIdCategoria(Integer idCategoria) {
 		this.idCategoria = idCategoria;
 	}
+	
+	// Método responsável por imprimir as categorias de cada um dos livros cadastrados 
+	public void imprimirCategoriasLivros(ArrayList<Livro> livros, ArrayList<Categoria> categorias, ArrayList<LivroCategoria> livrosCategorias) {
+		for(Livro l : livros) {
+			System.out.print("\n\nNome do livro:  " + l.getNome() + "\nCategorias:\t");
+			for(LivroCategoria lc : livrosCategorias) {
+				if(l.getIdLivro() == lc.getIdLivro()) {
+					for(Categoria c : categorias) {
+						if(lc.getIdCategoria() == c.getIdCategoria()) {
+							System.out.print(c.getNome() + "; ");
+						}
+					}
+				}
+			}
+		}
+	}
+	
 }
