@@ -4,15 +4,10 @@ public class Pagamento {
 	
 	private String tipo;
 	private Pedido pedido;
+	private Double valorPagoDinheiro;
 	
 	public Pagamento() {
 		super();
-	}
-	
-	public Pagamento(String tipo, Pedido pedido) {
-		super();
-		this.tipo = tipo;
-		this.pedido = pedido;
 	}
 
 	public String getTipo() {
@@ -32,7 +27,7 @@ public class Pagamento {
 	}
 	
 	public void gerarNotaFiscal() {
-		System.out.print("---------------------------------------------\n");
+		System.out.print("\n---------------------------------------------\n");
 		System.out.print("                 NOTA FISCAL                 \n");
 		System.out.print("---------------------------------------------\n");
 		System.out.print("Nome do cliente: " + pedido.getNomeCliente() + "\n");
@@ -53,12 +48,25 @@ public class Pagamento {
 		System.out.print("---------------------------------------------\n");
 		System.out.print("Forma de pagamento: " + this.getTipo() + "\n");
 		System.out.print("Valor total: R$" + pedido.getValorTotal());
-		System.out.print("\n---------------------------------------------\n\n");
+		if(this.getTipo().equals("Dinheiro")) {
+			this.mostrarTroco();
+		} else {
+			System.out.println();
+		}
+		System.out.print("---------------------------------------------\n\n");
 	}
 	
-	public void mostrarTroco(Double valorPago) {
-		System.out.println("\nValor pago: " + valorPago);
-		System.out.println("Troco: R$" + (valorPago - this.getPedido().getValorTotal()) + "\n");
+	public void mostrarTroco() {
+		System.out.println("\nValor pago:  R$" + this.getValorPagoDinheiro());
+		System.out.print("Troco:       R$" + (this.getValorPagoDinheiro() - this.getPedido().getValorTotal()) + "\n");
+	}
+
+	public Double getValorPagoDinheiro() {
+		return valorPagoDinheiro;
+	}
+
+	public void setValorPagoDinheiro(Double valorPagoDinheiro) {
+		this.valorPagoDinheiro = valorPagoDinheiro;
 	}
 
 }
