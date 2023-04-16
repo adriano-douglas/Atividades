@@ -2,6 +2,9 @@ package Biblioteca.MVC;
 
 import java.util.ArrayList;
 
+import Biblioteca.MVC.models.CategoriaModel;
+import Biblioteca.MVC.models.LivroModel;
+
 public class DB {
 	
 	public static ArrayList<LivroModel> livros = new ArrayList<LivroModel>();

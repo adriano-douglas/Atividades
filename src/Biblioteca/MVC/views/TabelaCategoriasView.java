@@ -1,39 +1,37 @@
-package Biblioteca.MVC;
+package Biblioteca.MVC.views;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
-public class TabelaLivrosView extends JFrame {
+import Biblioteca.MVC.models.CategoriaModel;
+import Biblioteca.MVC.models.LivroModel;
+
+public class TabelaCategoriasView extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	
 	private JTable tabela;
     private DefaultTableModel modeloTabela;
 
-	public TabelaLivrosView() {
-		
-		setTitle("Tabela de livros");
-		setLocation(350, 50);
+	public TabelaCategoriasView() {
 		
 		modeloTabela = new DefaultTableModel();
 		modeloTabela.addColumn("ID");
 		modeloTabela.addColumn("Nome");
-		modeloTabela.addColumn("Autor");
-		modeloTabela.addColumn("Ano Publicação");
-		modeloTabela.addColumn("Categorias");
+		modeloTabela.addColumn("Livros");
 		
 		tabela = new JTable(modeloTabela);
-		tabela.setPreferredScrollableViewportSize(new Dimension(600, 200));
-		tabela.getColumnModel().getColumn(4).setCellRenderer(new MultiLineTableCellRenderer());
+		tabela.setPreferredScrollableViewportSize(new Dimension(600, 320));
+		tabela.getColumnModel().getColumn(2).setCellRenderer(new MultiLineTableCellRenderer());
 		tabela.setRowHeight(tabela.getRowHeight() * 3);
 		
 		JScrollPane scrollPane = new JScrollPane(tabela); 
@@ -41,22 +39,20 @@ public class TabelaLivrosView extends JFrame {
 		setLayout(new BorderLayout());
 		add(scrollPane, BorderLayout.CENTER);
 		
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        pack();
         setVisible(true);
         
 	}
 	
-	public void renderizarLivros(ArrayList<LivroModel> livros) {
+	public void renderizarCategorias(ArrayList<CategoriaModel> categorias) {
 		modeloTabela.setRowCount(0);
-	    for (LivroModel l : livros) {
-	    	String categorias = "";
-	    	for (CategoriaModel c : l.getCategorias()) {
-	    	    categorias += c.getNome() + "\n";
+	    for (CategoriaModel c : categorias) {
+	    	String livros = "";
+	    	for (LivroModel l : c.getLivros()) {
+	    	    livros += l.getNome() + "\n";
 	    	}
-	    	if(!categorias.isBlank())
-	    		categorias = categorias.substring(0, categorias.length() - 1);
-	        modeloTabela.addRow(new Object[] { l.getID(), l.getNome(), l.getAutor(), l.getAnoPublicacao(), categorias });
+	    	if(!livros.isBlank())
+	    		livros = livros.substring(0, livros.length() - 1);
+	        modeloTabela.addRow(new Object[] { c.getID(), c.getNome(), livros });
 	    }
 	}
 	

@@ -1,4 +1,4 @@
-package Biblioteca.MVC;
+package Biblioteca.MVC.models;
 
 import java.util.ArrayList;
 
