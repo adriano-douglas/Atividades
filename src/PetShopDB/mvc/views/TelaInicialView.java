@@ -1,4 +1,4 @@
-package PetShop.mvc.views;
+package PetShopDB.mvc.views;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -12,7 +12,7 @@ public class TelaInicialView extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	public TelaInicialView(CadastroProprietarioView cpv, CadastroAnimalView cav, TabelaAnimaisView tav,
-			TabelaProprietariosView tpv) {
+			RelacionarAnimalProprietarioView rapv, TabelaProprietariosView tpv, RelatorioView rv) {
 		super("Sistema PetShop");
 
 		// Cria o JTabbedPane
@@ -38,13 +38,23 @@ public class TelaInicialView extends JFrame {
 
 		// Cria o terceiro painel da aba
 		JPanel panel3 = new JPanel(new GridBagLayout());
-		panel3.add(tpv, constraints);
-		tabbedPane.addTab("Proprietários", panel3);
+		panel3.add(rapv, constraints);
+		tabbedPane.addTab("Relacionar Proprietário e Animal", panel3);
 
 		// Cria o quarto painel da aba
 		JPanel panel4 = new JPanel(new GridBagLayout());
-		panel4.add(tav, constraints);
-		tabbedPane.addTab("Animais", panel4);
+		panel4.add(tpv, constraints);
+		tabbedPane.addTab("Proprietários", panel4);
+
+		// Cria o quinto painel da aba
+		JPanel panel5 = new JPanel(new GridBagLayout());
+		panel5.add(tav, constraints);
+		tabbedPane.addTab("Animais", panel5);
+
+		// Cria o sexto painel da aba
+		JPanel panel6 = new JPanel(new GridBagLayout());
+		panel6.add(rv, constraints);
+		tabbedPane.addTab("Relatório", panel6);
 
 		// Adiciona o JTabbedPane ao JFrame
 		add(tabbedPane);
