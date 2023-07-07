@@ -89,8 +89,8 @@ public class RelatorioController {
 	
 	public static String montarHtml(ArrayList<Pagamento> pagamentos, LocalDate data1, LocalDate data2) {
 		String htmlConteudo = "<h3>Intervalo de datas: {{data1}} a {{data2}}</h3>";
-		htmlConteudo.replace("{{data1}}", data1.toString());
-		htmlConteudo.replace("{{data2}}", data2.toString());
+		htmlConteudo = htmlConteudo.replace("{{data1}}", data1.toString());
+		htmlConteudo = htmlConteudo.replace("{{data2}}", data2.toString());
 		Double total = 0.0;
 		for(Pagamento pa : pagamentos) {
 			
@@ -100,13 +100,13 @@ public class RelatorioController {
 					+ "      <th>Cliente</th>\r\n"
 					+ "      <th>Atendente</th>\r\n"
 					+ "      <th>Itens</th>\r\n"
-					+ "      <th>Valor Unitário</th>\r\n"
+					+ "      <th>Valor</th>\r\n"
 					+ "      <th>Quantidade</th>\r\n"
-					+ "      <th>Taxa de Serviço</th>\r\n"
+					+ "      <th>Taxa Serviço</th>\r\n"
 					+ "      <th>Total</th>\r\n"
-					+ "      <th>Forma de Pagamento</th>\r\n"
+					+ "      <th>Forma Pagamento</th>\r\n"
 					+ "    </tr>";
-			htmlConteudo.replace("{{id_pedido}}", pa.getPedido().getId().toString());
+			htmlConteudo = htmlConteudo.replace("{{id_pedido}}", pa.getPedido().getId().toString());
 			htmlConteudo += "<tr>\r\n"
 					+ "      <td>{{nome_cliente}}</td>\r\n"
 					+ "      <td>{{nome_atendente}}</td>\r\n"
@@ -134,7 +134,9 @@ public class RelatorioController {
 					+ "      <td>R$ {{taxa_servico}}</td>\r\n"
 					+ "      <td>R$ {{total_pedido}}</td>\r\n"
 					+ "      <td>{{forma_pagamento}}</td>\r\n"
-					+ "    </tr>";
+					+ "    </tr>"
+					+ "	 </table>"
+					+ "	 </br>";
 			int i = 0;
 			String listaPratos = "";
 			String listaValorUnitario = "";
@@ -142,20 +144,21 @@ public class RelatorioController {
 			for(Prato pr : pa.getPedido().getItensConsumidos()) {
 				listaPratos += "<li>" + pr.getNome() + "</li>\n";
 				listaValorUnitario += "<li>R$ " + pr.getPrecoVenda() + "</li>\n";
-				listaQuantidades += "<li>" + pa.getPedido().getItensConsumidos().get(i) + " unidades</li>\n";
+				listaQuantidades += "<li>" + pa.getPedido().getQuantidades().get(i) + " unidades</li>\n";
 				i++;
 			}
 			total += pa.getPedido().getValorTotal();
-			htmlConteudo.replace("{{nome_cliente}}", pa.getPedido().getCliente().getNome());
-			htmlConteudo.replace("{{nome_atendente}}", pa.getPedido().getFuncionario().getNome());
-			htmlConteudo.replace("{{lista_pratos}}", listaPratos);
-			htmlConteudo.replace("{{lista_valor_unitario}}", listaValorUnitario);
-			htmlConteudo.replace("{{lista_quantidades}}", listaQuantidades);
-			htmlConteudo.replace("{{taxa_servico}}", pa.getPedido().getTaxaServico().toString());
-			htmlConteudo.replace("{{total_pedido}}", pa.getPedido().getValorTotal().toString());
-			htmlConteudo.replace("{{forma_pagamento}}", pa.getTipo().toString());
+			htmlConteudo = htmlConteudo.replace("{{nome_cliente}}", pa.getPedido().getCliente().getNome());
+			htmlConteudo = htmlConteudo.replace("{{nome_atendente}}", pa.getPedido().getFuncionario().getNome());
+			htmlConteudo = htmlConteudo.replace("{{lista_pratos}}", listaPratos);
+			htmlConteudo = htmlConteudo.replace("{{lista_valor_unitario}}", listaValorUnitario);
+			htmlConteudo = htmlConteudo.replace("{{lista_quantidades}}", listaQuantidades);
+			htmlConteudo = htmlConteudo.replace("{{taxa_servico}}", pa.getPedido().getTaxaServico().toString());
+			htmlConteudo = htmlConteudo.replace("{{total_pedido}}", pa.getPedido().getValorTotal().toString());
+			htmlConteudo = htmlConteudo.replace("{{forma_pagamento}}", pa.getTipo().toString());
 		}
 		htmlConteudo += "<h3>Valor Total de Todos os Pedidos: R$ " + total.toString() + "</h3>";
+		System.out.println(htmlConteudo);
 		return htmlConteudo;
 	}
 
